@@ -7,7 +7,8 @@ document.getElementById('liLink').href = 'https://www.linkedin.com/in/heather-ga
 
 async function loadProjects(){
   try{
-    const res = await fetch('projects.json');
+    const RES_VER = 'v2'; // bump this when projects.json changes
+const res = await fetch(`projects.json?${RES_VER}`);
     if(!res.ok) throw new Error('Failed to load projects.json');
     const items = await res.json();
     render(items);
