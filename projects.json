@@ -1,39 +1,18 @@
 [
   {
-    "title": "Random Cocktail Generator",
-    "description": "Fetches a random cocktail from TheCocktailDB, shows ingredients and instructions, with favorites in localStorage.",
-    "tags": [
-      "HTML",
-      "CSS",
-      "JavaScript",
-      "API"
-    ],
-    "demo": "https://YOUR_USERNAME.github.io/random-cocktail-generator/",
-    "repo": "https://github.com/YOUR_USERNAME/random-cocktail-generator",
+    "title": "Cocktail Studio (Random + Search)",
+    "description": "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
+    "tags": ["HTML", "CSS", "JavaScript", "API"],
+    "demo": "#",
+    "repo": "#",
     "image": "thumbs/random-cocktail.jpg"
   },
   {
-    "title": "World Map Explorer",
-    "description": "Leaflet + REST Countries: search countries, see capital markers, and quick facts in popups.",
-    "tags": [
-      "Leaflet",
-      "Fetch API",
-      "Geospatial"
-    ],
-    "demo": "https://YOUR_USERNAME.github.io/world-map-explorer/",
-    "repo": "https://github.com/YOUR_USERNAME/world-map-explorer",
+    "title": "World Map (Angular, Course Project)",
+    "description": "Interactive SVG world map in Angular with country details from the World Bank API.",
+    "tags": ["Angular", "Routing", "HTTPClient", "API"],
+    "demo": "#",
+    "repo": "#",
     "image": "thumbs/world-map.jpg"
-  },
-  {
-    "title": "API Explorer (Cocktails)",
-    "description": "Search cocktails by name, view details in a dialog, and explore a clean card UI.",
-    "tags": [
-      "Vanilla JS",
-      "Fetch API",
-      "UI"
-    ],
-    "demo": "https://YOUR_USERNAME.github.io/api-explorer-app/",
-    "repo": "https://github.com/YOUR_USERNAME/api-explorer-app",
-    "image": "thumbs/api-explorer.jpg"
   }
 ]
