@@ -1,19 +1,19 @@
 :root{
-  --bg:#f6f9f7;
-  --text:#0f172a;
-  --muted:#516069;
+  --bg:#fff8ef;
+  --text:#1f2937;
+  --muted:#6b7280;
   --card:#ffffff;
-  --border:rgba(2,6,23,.08);
-  --accent:#0ea5a1; /* teal */
+  --border:rgba(31,41,55,.12);
+  --accent:#d97706; /* warm orange */
 }
 body{
-  background: radial-gradient(1200px 600px at 10% -10%, #e6f7f6 0, #f6f9f7 55%, #eef4f1 100%);
+  background: radial-gradient(1200px 600px at 10% -10%, #fff1db 0, #fff8ef 55%, #fef3c7 100%);
   color:var(--text);
 }
-.card{ background:var(--card); border:1px solid var(--border); box-shadow: 0 6px 20px rgba(2,6,23,.06); }
-.btn{ background:var(--accent); color:#ffffff; border-color:transparent; }
+.card{ background:var(--card); border:1px solid var(--border); box-shadow: 0 6px 20px rgba(146,64,14,.08); }
+.btn{ background:var(--accent); color:#fff; border-color:transparent; }
 .btn:hover{ filter:brightness(.95); }
-.tag{ color:#1f2937; border-color:#e5e7eb; background:#eef6f5; }
+.tag{ color:#1f2937; border-color:#f1e4d2; background:#fff4e5; }
 .nav a{ color:var(--text); }
 
 
