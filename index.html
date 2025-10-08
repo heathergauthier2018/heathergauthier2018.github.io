@@ -1,50 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Heather Gauthier • Portfolio</title>
-  <meta name="description" content="Portfolio of software projects by Heather Gauthier.">
-  <link rel="stylesheet" href="styles.css"/>
-</head>
-<body>
-  <header class="site-header">
-    <div class="wrap">
-      <h1>Heather Gauthier</h1>
-      <p class="sub">Software Engineering Student • QA Certified (CTFL, CTFL-AT)</p>
-      <nav class="nav">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="Heather-Gauthier-Resume.pdf" target="_blank" rel="noreferrer">Resume (PDF)</a>
-      </nav>
-    </div>
-  </header>
+<!-- REMOVE this line if you still have it -->
+<!-- <script src="script.js" type="module"></script> -->
 
-  <main class="wrap">
-    <section id="intro" class="intro">
-      <p>Hi! I’m Heather — I like building clean, accessible web apps and learning by shipping small projects. Here are a few highlights.</p>
-    </section>
+<!-- ADD this inline script instead -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const grid = document.getElementById('grid');
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <div id="grid" class="grid"></div>
-    </section>
+  const gh = document.getElementById('ghLink');
+  const li = document.getElementById('liLink');
+  if (gh) gh.href = 'https://github.com/heathergauthier2018';
+  if (li) li.href = 'https://www.linkedin.com/in/heather-gauthier-11903a2a3/';
 
-    <section id="about" class="about">
-      <h2>About</h2>
-      <p>I’m pursuing a B.S. in Software Engineering (WGU, expected 2026) and hold testing certifications (CTFL, CTFL‑AT). I enjoy frontend, APIs, and thoughtful UX. Currently balancing school, work, and building small portfolio projects.</p>
-      <ul class="links">
-        <li>📧 <a href="mailto:heathergauthier18@gmail.com">heathergauthier18@gmail.com</a></li>
-        <li>🐙 <a href="#" id="ghLink" target="_blank" rel="noreferrer">GitHub</a></li>
-        <li>💼 <a href="#" id="liLink" target="_blank" rel="noreferrer">LinkedIn</a></li>
-      </ul>
-    </section>
-  </main>
+  // Built-in fallback so cards render even if JSON 404s or is invalid.
+  const FALLBACK_ITEMS = [
+    {
+      title: "Cocktail Studio (Random + Search)",
+      description: "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
+      tags: ["HTML", "CSS", "JavaScript", "API"],
+      demo: "https://heathergauthier2018.github.io/cocktail-finder/",
+      repo: "https://github.com/heathergauthier2018/cocktail-finder",
+      image: "thumbs/random-cocktail.jpg"
+    },
+    {
+      title: "World Map (Angular, Course Project)",
+      description: "Interactive SVG world map in Angular with country details from the World Bank API.",
+      tags: ["Angular", "Routing", "HTTPClient", "API"],
+      demo: "#",        // Hidden until you have a real link
+      repo: "#",
+      image: "thumbs/world-map.jpg"
+    },
+    {
+      title: "D277 Front-End Web Development",
+      description: "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
+      tags: ["HTML","CSS","JavaScript","Accessibility"],
+      demo: "https://d277-front-end-web-development-b3bf51.gitlab.io/",
+      repo: "",
+      image: "thumbs/thumb-placeholder.jpg"  // swap to thumbs/d277.jpg when ready
+    }
+  ];
 
-  <footer class="footer">
-    <small>© <span id="year"></span> Heather Gauthier • Deployed with GitHub Pages / Netlify</small>
-  </footer>
+  // Try to load projects.json; if it fails, fall back to the built-in list.
+  (async function loadProjects() {
+    let items = FALLBACK_ITEMS;
+    try {
+      const res = await fetch('projects.json?force=' + Date.now(), { cache: 'no-store' });
+      if (!res.ok) throw new Error('projects.json HTTP ' + res.status);
+      const data = await res.json();
+      if (Array.isArray(data) && data.length) items = data;
+    } catch (e) {
+      console.warn('Using fallback projects:', e);
+    }
+    render(items);
+  })();
 
-  <script src="script.js" type="module"></script>
-</body>
-</html>
+  function render(items) {
+    if (!grid) return;
+    grid.innerHTML = '';
+    const frag = document.createDocumentFragment();
+    items.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      const imgSrc = p.image || 'thumbs/thumb-placeholder.jpg';
+      const hasDemo = !!(p.demo && p.demo !== '#');
+      const hasRepo = !!(p.repo && p.repo !== '#');
+
+      card.innerHTML = `
+        <img class="thumb"
+             src="${imgSrc}"
+             alt="Screenshot of ${escapeHtml(p.title || 'project')}"
+             onerror="this.onerror=null;this.src='thumbs/thumb-placeholder.jpg'">
+        <div class="content">
+          <h3 class="title">${escapeHtml(p.title)}</h3>
+          <p class="desc">${escapeHtml(p.description || '')}</p>
+          <div class="tags">${(p.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+          <div class="actions">
+            ${hasDemo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noreferrer">Live Demo</a>` : ''}
+            ${hasRepo ? `<a class="btn" href="${p.repo}" target="_blank" rel="noreferrer">Repo</a>` : ''}
+          </div>
+        </div>
+      `;
+      frag.appendChild(card);
+    });
+    grid.appendChild(frag);
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+});
+</script>
+
