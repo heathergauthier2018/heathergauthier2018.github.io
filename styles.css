@@ -1,14 +1,23 @@
 /* === Classic Light (Indigo) — drop-in replacement === */
 *{box-sizing:border-box}
 :root{
-  /* palette */
-  --bg:#f8fafc;            /* page background */
-  --text:#0f172a;          /* near-black text */
-  --muted:#475569;         /* subdued text */
-  --card:#ffffff;          /* card background */
+  --bg:#f6f9f7;
+  --text:#0f172a;
+  --muted:#516069;
+  --card:#ffffff;
   --border:rgba(2,6,23,.08);
-  --accent:#4f46e5;        /* indigo */
+  --accent:#0ea5a1; /* teal */
 }
+body{
+  background: radial-gradient(1200px 600px at 10% -10%, #e6f7f6 0, #f6f9f7 55%, #eef4f1 100%);
+  color:var(--text);
+}
+.card{ background:var(--card); border:1px solid var(--border); box-shadow: 0 6px 20px rgba(2,6,23,.06); }
+.btn{ background:var(--accent); color:#ffffff; border-color:transparent; }
+.btn:hover{ filter:brightness(.95); }
+.tag{ color:#1f2937; border-color:#e5e7eb; background:#eef6f5; }
+.nav a{ color:var(--text); }
+
 
 html,body{height:100%}
 
