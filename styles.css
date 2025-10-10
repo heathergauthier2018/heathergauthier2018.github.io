@@ -90,3 +90,71 @@ h2{margin:1.25rem 0 .75rem; color:#0b1220}
   .site-header .wrap{flex-direction:column; align-items:flex-start}
   .nav a{margin-left:0; margin-right:1rem}
 }
+/* ==== Portfolio Pastel Overrides (place at very end of styles.css) ==== */
+:root{
+  --bg: #faf7ff;            /* very light lavender */
+  --card: #ffffff;          /* white cards */
+  --ink: #2d2a31;           /* dark neutral text */
+  --muted: #6b6673;         /* secondary text */
+  --accent: #caa8ff;        /* pastel purple accent */
+  --accent-2: #ffd9e8;      /* blush accent */
+  --ring: rgba(100, 72, 180, .18);
+}
+
+/* kill any repeating/striped backgrounds */
+html, body {
+  background: var(--bg) !important;
+  background-image: none !important;
+  color: var(--ink);
+}
+
+/* general type */
+h1, h2, h3 { color: var(--ink); }
+p, li, small { color: var(--muted); }
+
+/* containers/cards/sections */
+.container, .wrapper, .section, .card {
+  background: var(--card) !important;
+  border: none !important;
+  box-shadow: 0 6px 24px rgba(25, 10, 60, .06) !important;
+  border-radius: 18px !important;
+}
+
+/* remove divider lines */
+hr, .divider, .rule, .section::before, .section::after {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* nav + footer clean */
+header, nav, footer {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* links & focus */
+a { color: #6f3df4; }
+a:hover { color: #4f2ac0; }
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* buttons / tags */
+button, .btn, .chip, .tag {
+  background: linear-gradient(180deg, var(--accent), var(--accent-2)) !important;
+  color: #2a203b !important;
+  border: none !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 20px var(--ring) !important;
+}
+
+/* project tiles quick polish */
+.project, .project-card {
+  background: var(--card) !important;
+  border: 0 !important;
+  box-shadow: 0 6px 24px rgba(25, 10, 60, .06) !important;
+  border-radius: 20px !important;
+}
