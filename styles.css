@@ -1,160 +1,232 @@
+/* ============== Pastel Portfolio Theme (banding-free) ============== */
+
+*{ box-sizing:border-box }
 :root{
-  --bg:#fff8ef;
-  --text:#1f2937;
-  --muted:#6b7280;
-  --card:#ffffff;
+  --bg:#fff8ef;           /* warm cream */
+  --ink:#1f2937;          /* text */
+  --muted:#6b7280;        /* secondary */
+  --card:#ffffff;         /* tiles/cards */
   --border:rgba(31,41,55,.12);
-  --accent:#d97706; /* warm orange */
+  --accent:#d97706;       /* warm orange */
+
+  /* per-card accent cycle (used by JS) */
+  --accent-1:#d8b4fe;   /* lavender */
+  --accent-2:#fbcfe8;   /* pink */
+  --accent-3:#a7f3d0;   /* mint */
+  --accent-4:#fde68a;   /* sunflower */
+  --accent-5:#93c5fd;   /* sky */
 }
-body{
-  background: radial-gradient(1200px 600px at 10% -10%, #fff1db 0, #fff8ef 55%, #fef3c7 100%);
-  color:var(--text);
-}
-.card{ background:var(--card); border:1px solid var(--border); box-shadow: 0 6px 20px rgba(146,64,14,.08); }
-.btn{ background:var(--accent); color:#fff; border-color:transparent; }
-.btn:hover{ filter:brightness(.95); }
-.tag{ color:#1f2937; border-color:#f1e4d2; background:#fff4e5; }
-.nav a{ color:var(--text); }
 
+html,body{ height:100%; color-scheme: light }
 
-html,body{height:100%}
-
+/* ---- banding-proof light background ---- */
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-  color:var(--text);
-  /* soft, legible background */
-  background: radial-gradient(1200px 600px at 10% -10%, #eef2ff 0, #f8fafc 55%, #f1f5f9 100%);
+  color:var(--ink);
+
+  /* solid + VERY soft vertical gradient + fixed micro-noise to kill banding */
+  background-color:#fff8ef;
+  background-image:
+    linear-gradient(180deg, #fff8ef 0%, #fff8ef 60%, #fff4e2 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncA type='table' tableValues='0 0.03'/></feComponentTransfer></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-blend-mode: normal, overlay;
+  background-attachment: scroll, fixed; /* noise fixed so it never aligns to rows */
 }
 
-.wrap{max-width:1000px; margin:0 auto; padding:0 1rem}
+/* layout */
+.wrap{ max-width:1000px; margin:0 auto; padding:0 1rem }
 
-.site-header{border-bottom:1px solid var(--border);}
-.site-header .wrap{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1rem}
+/* header — NO lines */
+.site-header{
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.site-header .wrap{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1rem;
+}
+.id h1{ margin:.25rem 0; font-size:clamp(1.4rem,3.5vw,2rem); color:#0b1220 }
+.sub{ color:var(--muted); margin:0 }
 
-h1{margin:.25rem 0; font-size: clamp(1.4rem, 3.5vw, 2rem); color:#0b1220}
-.sub{color:var(--muted); margin:0}
-
-/* links/nav */
-.nav a{color:var(--text); opacity:1; margin-left:1rem; text-decoration:none; border-bottom:1px dashed transparent}
-.nav a:hover{border-bottom-color: var(--accent)}
-a:focus-visible, .btn:focus-visible, .nav a:focus-visible{
+/* nav */
+.nav a{
+  color:var(--ink);
+  margin-left:1rem;
+  text-decoration:none;
+  border-bottom:1px dashed transparent;
+}
+.nav a:hover{ border-bottom-color: color-mix(in oklab, var(--accent) 65%, white) }
+.nav a:focus-visible{
   outline:3px solid color-mix(in oklab, var(--accent) 60%, white);
-  outline-offset:2px; border-radius:12px;
+  outline-offset:3px; border-radius:10px;
 }
-a:visited{ color: color-mix(in oklab, var(--accent) 65%, #64748b); }
 
-.intro{padding:1rem 0}
-h2{margin:1.25rem 0 .75rem; color:#0b1220}
+/* intro & section titles */
+.intro{ padding:1rem 0 }
+h2{ margin:1.25rem 0 .75rem; color:#0b1220 }
 
-.grid{display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:1rem}
+/* grid */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.35rem; /* more vertical spacing so rows never feel like a band */
+}
 
+/* cards — crisp, no big shadows (shadows create the mid-page stripe) */
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:16px;
   overflow:hidden;
-  display:flex; flex-direction:column; min-height:260px;
-  box-shadow:0 10px 24px rgba(2,6,23,.06); /* subtle lift on light bg */
+  display:flex; flex-direction:column;
+  min-height:260px;
+
+  box-shadow:none;   /* critical: no blurred shadow to stack */
+  filter:none;
+}
+/* neutralize any pseudo-element shadows just in case */
+.card::before,
+.card::after{ content:none !important; box-shadow:none !important; filter:none !important; }
+
+/* optional subtle “accent halo” on focus/hover only (doesn’t stack) */
+.card:focus-within,
+.card:hover{
+  outline: 3px solid color-mix(in oklab, var(--card-accent, var(--accent)) 18%, transparent);
+  outline-offset: 2px;
 }
 
-.thumb{width:100%; aspect-ratio: 16/9; object-fit:cover; background:#e5e7eb}
+.thumb{ width:100%; aspect-ratio:16/9; object-fit:cover; background:#f3f4f6 }
+.content{ padding:.9rem }
+.title{ margin:.25rem 0 }
+.desc{ color:var(--muted); font-size:.95rem; min-height:3em }
 
-.content{padding:.9rem}
-.title{margin:.25rem 0}
-.desc{color:var(--muted); font-size:.95rem; min-height: 3em}
-
-.tags{display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0}
+/* tags */
+.tags{ display:flex; flex-wrap:wrap; gap:.4rem; margin:.5rem 0 }
 .tag{
   font-size:.8rem; padding:.2rem .5rem;
-  border:1px solid #e5e7eb; border-radius:999px;
-  background:#f3f4f6; color:#1f2937;
+  border:1px solid #f1e4d2; border-radius:999px;
+  background:#fff4e5; color:#1f2937;
 }
+/* colorful tech chips (match JS classes) */
+.tag.--html{ background:#fff1e6; border-color:#ffd3b6; color:#9a3412; }
+.tag.--css{ background:#e0f2ff; border-color:#bae6fd; color:#0c4a6e; }
+.tag.--js{ background:#fffbe6; border-color:#fde68a; color:#92400e; }
+.tag.--react{ background:#e6fbff; border-color:#bae6fd; color:#075985; }
+.tag.--angular{ background:#ffe4e6; border-color:#fecdd3; color:#9f1239; }
+.tag.--ts{ background:#e6f0ff; border-color:#c7d2fe; color:#1e3a8a; }
+.tag.--api{ background:#e6fffb; border-color:#bae6e6; color:#155e75; }
+.tag.--svg{ background:#f3e8ff; border-color:#e9d5ff; color:#6b21a8; }
+.tag.--a11y{ background:#ecfdf5; border-color:#bbf7d0; color:#065f46; }
+.tag.--routing{ background:#eef2ff; border-color:#c7d2fe; color:#3730a3; }
+.tag.--storage{ background:#fff7ed; border-color:#fed7aa; color:#92400e; }
+.tag.--responsive{ background:#f3f4f6; border-color:#e5e7eb; color:#374151; }
 
-/* buttons tuned for light theme */
-.actions{display:flex; gap:.5rem; margin-top:.75rem}
+/* actions / buttons */
+.actions{ display:flex; gap:.5rem; margin-top:.75rem }
 .btn{
   flex:1; text-align:center; padding:.6rem .75rem; border-radius:12px;
   border:1px solid transparent; background:var(--accent); color:#fff; text-decoration:none;
-  transition:filter .15s ease, transform .02s ease;
+  transition: filter .15s ease, transform .02s ease;
+  box-shadow: 0 8px 20px rgba(217,119,6,.18); /* tiny, local to button only */
 }
-.btn:hover{ filter:brightness(.95) }
+.btn:hover{ filter:brightness(.96) }
 .btn:active{ transform:translateY(1px) }
+.btn:focus-visible{
+  outline:3px solid color-mix(in oklab, var(--accent) 55%, white);
+  outline-offset:3px;
+}
 
-.about{margin:2rem 0}
-.links{list-style:none; padding:0; display:grid; gap:.4rem}
+/* about */
+.about{ margin:2rem 0 }
+.links{ list-style:none; padding:0; display:grid; gap:.4rem }
+.links a{ color: color-mix(in oklab, var(--accent) 60%, #3b82f6) }
 
-.footer{padding:1rem; text-align:center; border-top:1px solid var(--border); color:#64748b}
+/* footer — NO LINE */
+.footer{
+  padding:1rem; text-align:center; color:#64748b;
+  border:0 !important; background:transparent !important; box-shadow:none !important;
+}
 
+/* double-safety: remove any template dividers */
+hr, .divider, .rule, .section-divider,
+.site-header::before, .site-header::after,
+.footer::before, .footer::after{
+  content:none !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+/* responsive */
 @media (max-width:780px){
-  .site-header .wrap{flex-direction:column; align-items:flex-start}
-  .nav a{margin-left:0; margin-right:1rem}
+  .site-header .wrap{ flex-direction:column; align-items:flex-start }
+  .nav a{ margin-left:0; margin-right:1rem }
 }
-/* ==== Portfolio Pastel Overrides (place at very end of styles.css) ==== */
-:root{
-  --bg: #faf7ff;            /* very light lavender */
-  --card: #ffffff;          /* white cards */
-  --ink: #2d2a31;           /* dark neutral text */
-  --muted: #6b6673;         /* secondary text */
-  --accent: #caa8ff;        /* pastel purple accent */
-  --accent-2: #ffd9e8;      /* blush accent */
-  --ring: rgba(100, 72, 180, .18);
+/* --- Kill the mid-row band caused by aligned button shadows --- */
+.btn{
+  box-shadow: none !important;            /* remove stacking shadow */
 }
 
-/* kill any repeating/striped backgrounds */
-html, body {
-  background: var(--bg) !important;
+/* keep a little “pressable” feedback without global shadows */
+.btn:hover{ filter: brightness(.96); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+
+/* tiny extra breathing room so rows feel separate */
+.actions{ margin-bottom: .25rem; }
+
+/* (safety) ensure cards themselves aren’t reintroducing a shadow */
+.card, .card::before, .card::after{ box-shadow: none !important; filter: none !important; }
+/* Make the page background a single flat color (no gradients, no banding) */
+body{
+  background: #fff8ef !important;     /* warm cream */
   background-image: none !important;
-  color: var(--ink);
 }
 
-/* general type */
-h1, h2, h3 { color: var(--ink); }
-p, li, small { color: var(--muted); }
-
-/* containers/cards/sections */
-.container, .wrapper, .section, .card {
-  background: var(--card) !important;
-  border: none !important;
-  box-shadow: 0 6px 24px rgba(25, 10, 60, .06) !important;
-  border-radius: 18px !important;
-}
-
-/* remove divider lines */
-hr, .divider, .rule, .section::before, .section::after {
+/* Ensure sections don't introduce their own backgrounds */
+main, section, .wrap{
   background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
 }
 
-/* nav + footer clean */
-header, nav, footer {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
+/* Remove any row-aligned shadows that can read as a horizontal band */
+.card, .card::before, .card::after{ box-shadow: none !important; filter: none !important; }
+.btn{ box-shadow: none !important; }
+
+/* (optional) keep a tiny interaction cue without shadows */
+.btn:hover{ filter: brightness(.96); transform: translateY(-1px); }
+.btn:active{ transform: translateY(0); }
+
+/* small extra spacing between rows so nothing “aligns” visually */
+.grid{ gap: 1.35rem !important; }
+.actions{ margin-bottom: .25rem; }
+/* Card image: keep the top area slightly tinted so the text section pops */
+.thumb{ background:#f5f6f8 } /* subtle and neutral */
+
+/* Card content spacing + consistent button height */
+.content{ padding: 1rem }
+.btn{ min-height: 44px; font-weight: 600 }
+
+/* Softer rounded corners that read well on mobile too */
+.card{ border-radius: 18px }
+@media (max-width: 720px){
+  .wrap{ padding: 0 1.25rem }
+  .grid{ grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) }
+  .card{ border-radius: 16px }
 }
 
-/* links & focus */
-a { color: #6f3df4; }
-a:hover { color: #4f2ac0; }
-:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
+/* Project section rhythm */
+#projects{ scroll-margin-top: 72px }     /* nicer anchor jump */
+section + section{ margin-top: 2rem }    /* gentle vertical spacing */
+
+/* Hover affordances without shadows (works with your flat bg) */
+.card:hover{ outline:2px solid color-mix(in oklab, var(--accent) 18%, white); outline-offset:2px }
+a:focus-visible, .btn:focus-visible, .nav a:focus-visible{
+  outline:3px solid color-mix(in oklab, var(--accent) 55%, white);
+  outline-offset:3px; border-radius:10px;
 }
 
-/* buttons / tags */
-button, .btn, .chip, .tag {
-  background: linear-gradient(180deg, var(--accent), var(--accent-2)) !important;
-  color: #2a203b !important;
-  border: none !important;
-  border-radius: 999px !important;
-  box-shadow: 0 8px 20px var(--ring) !important;
-}
-
-/* project tiles quick polish */
-.project, .project-card {
-  background: var(--card) !important;
-  border: 0 !important;
-  box-shadow: 0 6px 24px rgba(25, 10, 60, .06) !important;
-  border-radius: 20px !important;
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important }
+  .btn:hover{ transform:none }
 }

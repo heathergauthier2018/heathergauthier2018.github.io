@@ -1,6 +1,5 @@
-// --- Portfolio script (multi-accent + colorful chips) ---
+// ========== Portfolio Script (grid render + accents + links) ==========
 
-// Header links + year
 const grid = document.getElementById('grid');
 const year = document.getElementById('year');
 if (year) year.textContent = new Date().getFullYear();
@@ -10,7 +9,6 @@ const li = document.getElementById('liLink');
 if (gh) gh.href = 'https://github.com/heathergauthier2018';
 if (li) li.href = 'https://www.linkedin.com/in/heather-gauthier-11903a2a3/';
 
-// Built-in list (used immediately; replaced by projects.json if it loads)
 const FALLBACK_ITEMS = [
   {
     title: "Cocktail Studio (Random + Search)",
@@ -24,7 +22,7 @@ const FALLBACK_ITEMS = [
     title: "World Map (Angular, Expanded)",
     description: "Interactive SVG world map in Angular with country details from the World Bank API. Routing and richer interactions beyond the course baseline.",
     tags: ["Angular","TypeScript","SVG","HTTPClient","Routing","API"],
-    demo: "#",       // add real link when ready
+    demo: "#",
     repo: "#",
     image: "thumbs/world-map.jpg"
   },
@@ -32,21 +30,20 @@ const FALLBACK_ITEMS = [
     title: "D277 Front-End Web Development",
     description: "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
     tags: ["HTML","CSS","JavaScript","Accessibility","Responsive"],
-    demo: "https://d277-front-end-web-development-b3bf51.gitlab.io/",
-    repo: "",        // Private (WGU GitLab)
+    demo: "https://heathergauthier2018.github.io/Washington-State-Project/", // updated
+    repo: "",
     image: "thumbs/thumb-placeholder.jpg"
   },
   {
     title: "Dear Self — Journaling App (WIP)",
     description: "Personal journaling app focusing on clean UX, tags/search, and private local data. Case study + demo link coming soon.",
     tags: ["React","Routing","State","localStorage","Accessibility"],
-    demo: "#",       // placeholder for now
+    demo: "#",
     repo: "#",
     image: "thumbs/thumb-placeholder.jpg"
   }
 ];
 
-// Try to load projects.json; if it fails, keep FALLBACK_ITEMS
 (async function loadProjects(){
   let items = FALLBACK_ITEMS;
   try {
@@ -54,9 +51,7 @@ const FALLBACK_ITEMS = [
     if (!res.ok) throw new Error('projects.json HTTP ' + res.status);
     const data = await res.json();
     if (Array.isArray(data) && data.length) items = data;
-  } catch (e) {
-    console.warn('Using fallback projects:', e);
-  }
+  } catch(_) { /* keep fallback */ }
   render(items);
 })();
 
@@ -69,11 +64,10 @@ function render(items){
     const card = document.createElement('article');
     card.className = 'card';
 
-    // Per-card accent color: cycle through 1..5 (must exist in CSS as --accent-1..5)
-    const accentIdx = (i % 5) + 1;
-    card.style.setProperty('--card-accent', `var(--accent-${accentIdx})`);
+    // per-card accent cycle (matches CSS --accent-1..5)
+    const idx = (i % 5) + 1;
+    card.style.setProperty('--card-accent', `var(--accent-${idx})`);
 
-    // Colorful tech chips: map tag -> CSS modifier class
     const tagClass = (t) => {
       const k = String(t).toLowerCase();
       if (k === 'html') return '--html';
@@ -88,13 +82,13 @@ function render(items){
       if (k === 'routing') return '--routing';
       if (k === 'localstorage' || k === 'storage') return '--storage';
       if (k === 'responsive') return '--responsive';
-      return ''; // default look
+      return '';
     };
 
     const imgSrc = p.image || 'thumbs/thumb-placeholder.jpg';
     const hasDemo = !!(p.demo && p.demo !== '#');
     const hasRepo = !!(p.repo && p.repo !== '#');
-    const isPrivate = hasDemo && !hasRepo; // show badge when true
+    const isPrivate = hasDemo && !hasRepo;
 
     const tagsHtml =
       (p.tags || [])
@@ -123,8 +117,7 @@ function render(items){
   grid.appendChild(frag);
 }
 
-// Tiny helper to avoid accidental HTML injection in JSON
-function escapeHtml(str) {
+function escapeHtml(str){
   return String(str)
     .replaceAll('&','&amp;')
     .replaceAll('<','&lt;')
@@ -132,11 +125,3 @@ function escapeHtml(str) {
     .replaceAll('"','&quot;')
     .replaceAll("'",'&#39;');
 }
-(() => {
-  const bg = document.querySelector('.bg-wash');
-  console.log('bg-wash present?', !!bg);
-  if (bg) {
-    console.log('blur:', getComputedStyle(bg).filter);
-    console.log('body bg:', getComputedStyle(document.body).backgroundColor);
-  }
-})();
