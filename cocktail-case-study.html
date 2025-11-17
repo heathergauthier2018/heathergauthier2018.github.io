@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cocktail Finder — Case Study • Heather Gauthier</title>
+  <meta
+    name="description"
+    content="Case study for Cocktail Finder, a single-page cocktail explorer built with HTML, CSS, JavaScript, and an external API."
+  />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="id">
+        <h1>Heather Gauthier</h1>
+        <p class="sub">Software Engineering Student • QA Certified (CTFL, CTFL-AT)</p>
+      </div>
+      <nav class="nav">
+  <a href="index.html#projects">Projects</a>
+  <a href="index.html#about">About</a>
+  <a href="HeatherGResume.pdf" target="_blank" rel="noreferrer">Resume</a>
+</nav>
+
+    </div>
+  </header>
+
+  <main class="wrap case-main">
+    <!-- HERO -->
+    <section class="case-section case-hero">
+      <div class="case-hero-text">
+        <p class="case-kicker">Case Study • Cocktail Finder</p>
+        <h1 class="case-title">Cocktail Finder — Random Generator + Search Explorer</h1>
+        <p class="case-lead">
+          Cocktail Finder is a single-page web application that helps users explore cocktails in two ways:
+          generating a random drink or searching for something specific. Favorites are saved locally,
+          allowing users to build a personal list without creating an account.
+        </p>
+        <p class="case-lead">
+          The project is an active work in progress; the live demo reflects the current iteration while I
+          continue refining the interface, improving the mobile experience, enhancing accessibility, and
+          tightening the code structure.
+        </p>
+
+        <div class="case-meta-chips">
+          <span class="tag --html">HTML</span>
+          <span class="tag --css">CSS</span>
+          <span class="tag --js">JavaScript</span>
+          <span class="tag --api">API</span>
+          <span class="tag --storage">localStorage</span>
+        </div>
+
+        <div class="case-hero-actions">
+          <a
+            class="btn"
+            href="https://heathergauthier2018.github.io/cocktail-finder2.0/"
+            target="_blank"
+            rel="noreferrer"
+          >Live Demo</a>
+        </div>
+      </div>
+
+      <div class="case-hero-pane" aria-hidden="true">
+        <div class="case-hero-card">
+          <div class="case-hero-card-header">
+            <span class="case-pill">Modes</span>
+            <span class="case-date">Random • Search</span>
+          </div>
+          <p class="case-hero-affirmation">
+            A lightweight cocktail explorer that’s fast, focused, and easy to use.
+          </p>
+          <p class="case-hero-challenge">
+            Random mode inspires discovery, while search mode helps users look up favorites or
+            explore new drinks by name.
+          </p>
+          <div class="case-hero-footer">
+            <span class="case-tag-soft">API: TheCocktailDB</span>
+            <span class="case-streak-soft">Favorites via localStorage</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY I BUILT THIS -->
+    <section class="case-section">
+      <h2>Why I Built This</h2>
+      <p>
+        I created Cocktail Finder to strengthen my JavaScript fundamentals while working with a real public API.
+        I wanted a project that would let me practice client-side state management, DOM updates, and building a
+        small single-page experience without relying on a framework. It also gave me a chance to make concrete
+        UI and accessibility decisions on a project I fully own from idea to deployment.
+      </p>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="case-section">
+      <h2>Features</h2>
+      <p>
+        Cocktail Finder is designed to feel like a small, focused tool instead of a sprawling site. Users can:
+      </p>
+      <ul class="case-list">
+        <li>Generate a fully detailed random cocktail, including image, ingredients, glass type, and instructions.</li>
+        <li>Search for cocktails by full or partial name using TheCocktailDB API.</li>
+        <li>Save cocktails to a personal favorites list powered by <code>localStorage</code>.</li>
+        <li>Use a clean, desktop-first layout, with mobile refinements planned as a future enhancement.</li>
+      </ul>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Random Cocktail Mode</h3>
+          <p>
+            One click triggers an API call to TheCocktailDB and displays a new drink with its
+            name, image, glass type, ingredients, and step-by-step instructions. This mode is meant
+            to encourage discovery when the user doesn’t know what they’re in the mood for.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Search Mode</h3>
+          <p>
+            Users can search by cocktail name, even with partial matches. Results are shown as a list
+            of cards that highlight key details and can be favorited for later. This supports both
+            revisiting known drinks and exploring new ones by name.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Favorites System</h3>
+          <p>
+            Favorited cocktails are stored in <code>localStorage</code>, so they persist across sessions
+            on the same device. Users can build a simple “go-to” list without needing a back-end,
+            account system, or sign-in flow.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Layout &amp; UI</h3>
+          <p>
+            The current layout is optimized primarily for desktop browsers with clear hierarchy and spacing.
+            Improving the mobile layout and adding more refined responsive behavior is part of the planned
+            next round of enhancements.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TECH & ROLE -->
+    <section class="case-section">
+      <h2>Technical Decisions &amp; My Role</h2>
+      <p>
+        This project started as a way to practice working with a public API and managing state in a small
+        vanilla JavaScript codebase, and it grew into a focused single-page app where I owned both the
+        technical and UX decisions.
+      </p>
+
+      <div class="case-split">
+        <div>
+          <h3>Technical Decisions</h3>
+          <ul class="case-list">
+            <li>Structured the app as a single-page experience, toggling Random and Search views on one HTML page instead of loading separate routes.</li>
+            <li>Used <code>fetch()</code> to integrate TheCocktailDB API and added basic error handling and empty-state messaging for missing or invalid results.</li>
+            <li>Implemented favorites via <code>localStorage</code> so users can revisit saved cocktails without an account or back-end.</li>
+            <li>Separated DOM update logic from data formatting to keep the JavaScript easier to follow and maintain as the project evolves.</li>
+            <li>Focused on clear typography, contrast, and keyboard-focus states to improve accessibility for keyboard and screen-reader users.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>My Role &amp; Stack</h3>
+          <ul class="case-list">
+            <li>Designed the overall user flow for Random, Search, and Favorites.</li>
+            <li>Built the UI with semantic HTML and custom CSS.</li>
+            <li>Wrote all JavaScript for view switching, API requests, and favorites management.</li>
+            <li>Deployed the project using GitHub Pages and iterated based on manual testing.</li>
+          </ul>
+          <h4>Tech Stack</h4>
+          <ul class="case-list">
+            <li>HTML, CSS, Vanilla JavaScript (ES6+)</li>
+            <li>TheCocktailDB API</li>
+            <li><code>localStorage</code> for client-side persistence</li>
+            <li>VS Code, Git, GitHub, GitHub Pages</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUTURE IDEAS -->
+    <section class="case-section">
+      <h2>Future Enhancements</h2>
+      <p>
+        Cocktail Finder is intentionally small, but there’s plenty of room to grow it into a more powerful,
+        still-approachable cocktail tool. These ideas focus on better discovery, organization, and usability,
+        especially on smaller screens.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Advanced Filtering</h3>
+          <p>
+            Add filtering by ingredient, category, or glass type so users can narrow down results more efficiently.
+            For example, they could view only “whiskey” drinks in a rocks glass or browse light, fruity options.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Ingredient-Based Navigation</h3>
+          <p>
+            Enable ingredient-based navigation (e.g., clicking “lime” or “rum” on a cocktail card shows other cocktails
+            that include that ingredient), turning each drink into a jumping-off point for exploring the rest of the API.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Tags &amp; Favorites Organization</h3>
+          <p>
+            Introduce tags or labels (like “party”, “summer”, or “cozy”) for organizing favorites or grouping cocktails
+            by theme, making it easier to build go-to lists for different moods or occasions.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Surprise Me (Within a Category)</h3>
+          <p>
+            Add a “surprise me within a category” option so users can ask for a random mocktail, a summer drink,
+            or a tequila-based cocktail and get more targeted recommendations than the global random mode.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Mobile Polish &amp; Micro-Animations</h3>
+          <p>
+            Improve the mobile layout and spacing, and add subtle animations or transitions for card loading,
+            favorites, and view switching to create a more polished feel and better usability on smaller screens.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Non-Alcoholic Mode</h3>
+          <p>
+            Add a non-alcoholic mode toggle that filters results down to mocktails and low- or no-alcohol drinks,
+            making Cocktail Finder more inclusive for users who don’t drink alcohol or want better alcohol-free options.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <small>© <span id="year"></span> Heather Gauthier • Deployed with GitHub Pages</small>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+</body>
+</html>

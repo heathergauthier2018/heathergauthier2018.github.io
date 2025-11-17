@@ -1,34 +1,64 @@
 [
   {
-    "title": "Cocktail Studio (Random + Search)",
-    "description": "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
-    "tags": ["HTML","CSS","JavaScript","API","localStorage","Accessibility"],
-    "demo": "https://heathergauthier2018.github.io/cocktail-finder/",
-    "repo": "https://github.com/heathergauthier2018/cocktail-finder",
-    "image": "thumbs/random-cocktail.jpg"
+    "title": "Cocktail Finder",
+    "description": "A playful, API-powered cocktail explorer that combines a random generator with full search capabilities. Built with accessible, responsive UI patterns and persistent favoriting using localStorage. Designed to feel smooth, intuitive, and fun while demonstrating strong JavaScript and front-end fundamentals.",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "API",
+      "Fetch",
+      "JSON",
+      "Responsive",
+      "localStorage",
+      "Accessibility",
+      "UI Design",
+      "State Logic"
+    ],
+    "demo": "https://heathergauthier2018.github.io/cocktail-finder2.0/",
+    "repo": "cocktail-case-study.html",
+    "repoLabel": "Case Study",
+    "image": "thumbs/cocktailthumb.png"
   },
   {
-    "title": "World Map (Angular, Expanded)",
-    "description": "Interactive SVG world map in Angular with country details from the World Bank API. Routing and richer interactions beyond the course baseline.",
-    "tags": ["Angular","TypeScript","SVG","HTTPClient","Routing","API"],
-    "demo": "#",
-    "repo": "#",
-    "image": "thumbs/world-map.jpg"
-  },
-  {
-    "title": "D277 Front-End Web Development",
-    "description": "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
-    "tags": ["HTML","CSS","JavaScript","Accessibility","Responsive"],
+    "title": "Washington State Website",
+    "description": "A responsive multi-page website built with semantic HTML, modern CSS (Flexbox/Grid), and lightweight JavaScript. Focuses on readability, structure, and accessibility—showcasing clean front-end engineering practices and thoughtful content organization.",
+    "tags": [
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Responsive",
+      "Accessibility",
+      "Semantic HTML",
+      "Flexbox/Grid",
+      "UI Design",
+      "Performance"
+    ],
     "demo": "https://heathergauthier2018.github.io/Washington-State-Project/",
-    "repo": "",
-    "image": "thumbs/thumb-placeholder.jpg"
+    "repo": "washington-case-study.html",
+    "repoLabel": "Case Study",
+    "image": "thumbs/washingtonthumb.png"
   },
   {
-    "title": "Dear Self — Journaling App (WIP)",
-    "description": "Personal journaling app focusing on clean UX, tags/search, and private local data. Case study + demo link coming soon.",
-    "tags": ["React","Routing","State","localStorage","Accessibility"],
-    "demo": "#",
-    "repo": "#",
-    "image": "thumbs/thumb-placeholder.jpg"
+    "title": "Dear Self",
+    "description": "A gentle, customizable journaling application built in React with a focus on calm UX, theming, and private local data. Uses component-driven design, state management, and routing to create an experience that feels supportive, personal, and intuitive for daily use.",
+    "tags": [
+      "React",
+      "Components",
+      "Hooks",
+      "State",
+      "Routing",
+      "UX Design",
+      "Theming",
+      "localStorage",
+      "Accessibility",
+      "Responsive",
+      "UI Patterns",
+      "Debugging"
+    ],
+    "demo": "https://heathergauthier2018.github.io/Dear-Self/",
+    "repo": "dear-self.html",
+    "repoLabel": "Case Study",
+    "image": "thumbs/dearselfthumb.png"
   }
 ]

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dear Self — Journaling App • Heather Gauthier</title>
+  <meta
+    name="description"
+    content="Dear Self is a gentle journaling app focused on daily affirmations and challenges, calm UX, customization, and emotionally safe reflection."
+  />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+  <!-- Same header so it feels like part of the site -->
+  <header class="site-header">
+    <div class="wrap">
+      <div class="id">
+        <h1>Heather Gauthier</h1>
+        <p class="sub">Software Engineering Student • QA Certified (CTFL, CTFL-AT)</p>
+      </div>
+      <nav class="nav">
+  <a href="index.html#projects">Projects</a>
+  <a href="index.html#about">About</a>
+  <a href="HeatherGResume.pdf" target="_blank" rel="noreferrer">Resume</a>
+</nav>
+
+    </div>
+  </header>
+
+  <main class="wrap case-main">
+    <!-- HERO -->
+    <section class="case-section case-hero">
+      <div class="case-hero-text">
+        <p class="case-kicker">Case Study • Dear Self</p>
+        <h1 class="case-title">Dear Self — A Gentle, Customizable Journaling Sanctuary</h1>
+        <p class="case-lead">
+          Dear Self is a journaling app built in React that focuses on warmth, accessibility,
+          and emotional safety. It started with a simple idea: offer one meaningful affirmation
+          and a related challenge each day, and give the user a private space to process how it
+          went. From there, it grew into a calm, customizable journaling environment where they
+          can write about the challenge, their day, or anything on their mind.
+        </p>
+        <p class="case-lead">
+          The app is currently a work in progress; the live demo shows Version 1 of the experience
+          while I continue building out the theme studio, calendar views, and deeper reflection tools
+          that give users even more control over how their space looks and how they choose to express
+          themselves.
+        </p>
+
+        <div class="case-meta-chips">
+          <span class="tag --react">React</span>
+          <span class="tag --js">JavaScript</span>
+          <span class="tag --a11y">Accessibility</span>
+          <span class="tag --storage">localStorage</span>
+          <span class="tag --routing">Routing</span>
+        </div>
+
+        <div class="case-hero-actions">
+          <a
+            class="btn"
+            href="https://heathergauthier2018.github.io/Dear-Self/"
+            target="_blank"
+            rel="noreferrer"
+          >Live Demo</a>
+        </div>
+      </div>
+
+      <div class="case-hero-pane" aria-hidden="true">
+        <div class="case-hero-card">
+          <div class="case-hero-card-header">
+            <span class="case-pill">Today’s Moment</span>
+            <span class="case-date">March 4 • Daily</span>
+          </div>
+          <p class="case-hero-affirmation">
+            “I am allowed to move gently, even when the world feels loud.”
+          </p>
+          <p class="case-hero-challenge">
+            Challenge: Choose one thing to do slowly today and notice how your body responds.
+          </p>
+          <div class="case-hero-footer">
+            <span class="case-tag-soft">Theme: Soft Growth</span>
+            <span class="case-streak-soft">Streak: Day 7</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY I BUILT THIS -->
+    <section class="case-section">
+      <h2>Why I Built Dear Self</h2>
+      <p>
+        The very first version of Dear Self was just a daily affirmation and a matching challenge.
+        I wanted more than a quote you read once and forget. The goal was to offer a small,
+        kind sentence to carry through the day, and then pair it with a gentle nudge that helps
+        the user actually live that affirmation in a concrete way.
+      </p>
+      <p>
+        The journal began as a place to record how the challenge went — what they tried, what felt
+        hard, what felt good. Over time, that space has intentionally widened. Now, the hope is
+        that users might write multiple types of entries: one about the challenge itself, another
+        about their day, or something completely unrelated that they just need to get out of their
+        head. Dear Self is meant to feel like a space that is entirely theirs.
+      </p>
+      <p>
+        I built this project to combine my interests in mental health, accessibility, and cozy
+        digital spaces with my growth as a front-end developer. I’m especially interested in
+        giving users more control — over how their journal looks, how they structure their
+        reflection, and which tools they lean on. The affirmation and challenge are the starting
+        point, but the experience is designed so users can harness the tools in whatever way
+        best supports their day.
+      </p>
+      <p>
+        The long-term goal is for Dear Self to become a place where users can return over time
+        to see their emotional journey as a gentle record of days they showed up for themselves,
+        rather than a strict habit tracker or productivity dashboard.
+      </p>
+    </section>
+
+    <!-- FEATURES / EXPERIENCE -->
+    <section class="case-section">
+      <h2>Features &amp; Experience</h2>
+      <p>
+        Dear Self is designed to feel more like opening a favorite notebook than logging into an app.
+        Each session is anchored around a “Daily Moment” — a paired affirmation and challenge — and a
+        digital paper space where users can respond however they choose. They might write about the
+        challenge, their day, a memory, or a mix of all three. All data is private and stored locally
+        in the browser.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Daily Moment</h3>
+          <p>
+            A curated affirmation + challenge pair appears only when the user opens the app
+            on a new day. The affirmation offers something good to bring into their day,
+            while the challenge is intentionally small and realistic — a way to live the
+            affirmation instead of just reading it once and moving on.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Digital Paper Journal</h3>
+          <p>
+            The writing area mimics real paper with subtle textures, generous line spacing,
+            and ink-style fonts. Users can adjust fonts, text size, alignment, and line height
+            to make the space feel like theirs, whether they are reflecting on the challenge,
+            unpacking their day, or simply brain-dumping whatever is on their mind.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Soft Customization</h3>
+          <p>
+            Dear Self is built to become more customizable over time. Even in Version 1,
+            users can choose from multiple aesthetic themes and tweak details like ink color,
+            paper style, and layout. Preferences persist via <code>localStorage</code>,
+            so their journal always opens in a space that feels familiar and personal.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Gentle Streaks</h3>
+          <p>
+            A local streak system thanks users for showing up without scolding them
+            for missed days. Streaks reset quietly with no guilt-driven messaging.
+            The focus is on the relationship with the Daily Moments and entries,
+            not on maintaining a perfect record.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- CURRENT VERSION -->
+    <section class="case-section">
+      <h2>Current Version (V1) — What’s Built</h2>
+      <p>
+        Version 1 focuses on getting the core loop right: one Daily Moment, a calm home page,
+        and a comfortable writing surface powered by a data model that can grow with future features.
+      </p>
+
+      <ul class="case-list">
+        <li>
+          <strong>Today page with Daily Moment.</strong>
+          Affirmation + challenge are pulled from a curated set and displayed with a
+          soft, card-style layout. The system ensures there is a single Daily Moment per day,
+          so the experience feels focused rather than overwhelming.
+        </li>
+        <li>
+          <strong>Affirmation &amp; challenge content system.</strong>
+          Early content is structured in a way that can later support themes and categories
+          (for example, growth, rest, boundaries), while still remaining simple enough for
+          local, front-end-only storage.
+        </li>
+        <li>
+          <strong>Journal entry system.</strong>
+          Users can write freeform entries, change font family, size, line spacing, and
+          choose between several “paper” styles to match their mood and writing style.
+        </li>
+        <li>
+          <strong>Theme + appearance controls.</strong>
+          Early theme work includes pastel palettes, gentle textures, and light/dark styling
+          applied consistently across the Today page and journal.
+        </li>
+        <li>
+          <strong>Local persistence.</strong>
+          Entries, preferences, and streak information are stored in <code>localStorage</code>
+          so the experience feels continuous between sessions without requiring an account.
+        </li>
+        <li>
+          <strong>Streak badge (early version).</strong>
+          A React component tracks consecutive days of use and surfaces a soft “Day N”
+          badge as encouragement.
+        </li>
+        <li>
+          <strong>Accessibility-first layout.</strong>
+          Semantic structure, focus states, readable contrast, and reduced-motion-friendly
+          effects guided the UI decisions.
+        </li>
+      </ul>
+    </section>
+
+    <!-- TECH DECISIONS & ROLE -->
+    <section class="case-section">
+      <h2>Technical Decisions &amp; My Role</h2>
+      <p>
+        Dear Self is an ongoing solo project where I handle design, architecture, and implementation.
+        I approach it as both a learning space for React and a way to practice designing emotionally
+        aware products with clear UX structure, starting from the Daily Moment engine and expanding
+        outward into journaling, themes, and future tools.
+      </p>
+
+      <div class="case-split">
+        <div>
+          <h3>Technical Decisions</h3>
+          <ul class="case-list">
+            <li>
+              Structured the app as a React single-page experience with routing for Today, Journal, and (future) views.
+            </li>
+            <li>
+              Designed a Day Object model that can later support mood, gratitude, and other widgets without
+              breaking existing entries.
+            </li>
+            <li>
+              Built an affirmation + challenge system that pulls from a curated data set, ensures one Daily Moment
+              per day, and ties that moment to the user’s streak and journal entries.
+            </li>
+            <li>
+              Used <code>localStorage</code> for all persistence so users keep full control of their data on-device.
+            </li>
+            <li>
+              Built a theme and appearance system that uses CSS custom properties to flow colors and textures
+              through the UI.
+            </li>
+            <li>
+              Prioritized accessibility from the start with semantic markup, focus management, and readable typography.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3>My Role &amp; Stack</h3>
+          <ul class="case-list">
+            <li>UI/UX design and layout for the Today and journal pages.</li>
+            <li>React component structure, state management, and routing.</li>
+            <li>Day Object and Daily Moment data model and local persistence.</li>
+            <li>Affirmation + challenge content structure and selection logic.</li>
+            <li>Theme and appearance system (light/dark and early aesthetic themes).</li>
+            <li>Streak badge logic and user-facing interactions.</li>
+            <li>Accessibility and keyboard focus behavior.</li>
+          </ul>
+          <h4>Tech Stack</h4>
+          <ul class="case-list">
+            <li>React + JavaScript</li>
+            <li>CSS (custom properties, layout, theming)</li>
+            <li><code>localStorage</code> for client-side persistence</li>
+            <li>VS Code, Git, GitHub</li>
+            <li>Sketches and lightweight mockups for design exploration</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FUTURE ENHANCEMENTS -->
+    <section class="case-section">
+      <h2>Future Enhancements</h2>
+      <p>
+        The long-term vision for Dear Self is a fully featured, emotionally aware journaling
+        environment. Future work focuses on giving users even more control over how their space
+        looks, what tools they can use, and how they choose to interact with the Daily Moment
+        each day — while introducing a secure account system for syncing and a few gentle
+        supportive features like soundscapes and reminders.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Richer Theme Studio</h3>
+          <p>
+            Turn the existing theme work into a full “studio” where users can choose
+            from aesthetic packs (coquette, earthbound, celestial, etc.) or handcraft
+            their own themes with colors, textures, and typography, making the space
+            feel uniquely theirs.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Calendar &amp; Journey Views</h3>
+          <p>
+            Introduce a calendar that only creates days when the user opens the app,
+            plus a Journey page that visualizes moods, gratitude, Daily Moments, and streaks as a
+            gentle emotional timeline instead of hard analytics.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Widgets for Deeper Reflection</h3>
+          <p>
+            Add optional mood, gratitude, nightly review, and “one sentence for today”
+            widgets that attach to each Day Object without overwhelming the main journal,
+            so users can pick and choose what supports them best.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Dark &amp; Candle Mode Polish</h3>
+          <p>
+            Refine dark mode into a warm, candlelit experience with softer contrasts,
+            amber ink, and cozy textures for late-night writing and quiet reflection.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Accounts &amp; Cloud Sync</h3>
+          <p>
+            Move from a purely local experience to an optional account-based model backed by a
+            real database (for example, Firebase). Signed-in users would be able to sync their
+            affirmations, entries, themes, and settings securely across devices while still
+            keeping Dear Self focused on privacy, emotional safety, and user control.
+          </p>
+        </article>
+        <article class="case-card">
+          <h3>Soundscapes &amp; Gentle Reminders</h3>
+          <p>
+            Explore soft ambient soundscapes (like rain, fireplace crackle, or evening wind)
+            and opt-in reminders that feel more like invitations than alerts. The goal is to
+            support users in building a quiet ritual with Dear Self — for example, a gentle
+            evening reminder paired with a calming sound — without pressure or notification
+            overload.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <small>© <span id="year"></span> Heather Gauthier • Deployed with GitHub Pages</small>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+</body>
+</html>

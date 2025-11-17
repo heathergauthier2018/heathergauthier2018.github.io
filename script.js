@@ -11,13 +11,15 @@ if (li) li.href = 'https://www.linkedin.com/in/heather-gauthier-11903a2a3/';
 
 const FALLBACK_ITEMS = [
   {
-    title: "Cocktail Studio (Random + Search)",
+    title: "Cocktail Finder",
     description: "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
     tags: ["HTML","CSS","JavaScript","API","localStorage","Accessibility"],
-    demo: "https://heathergauthier2018.github.io/cocktail-finder/",
-    repo: "https://github.com/heathergauthier2018/cocktail-finder",
-    image: "thumbs/random-cocktail.jpg"
+    demo: "https://heathergauthier2018.github.io/cocktail-finder2.0/",
+    repo: "cocktail-case-study.html",
+    repoLabel: "Case Study",
+    image: "thumbs/cocktailthumb.png"
   },
+  /*
   {
     title: "World Map (Angular, Expanded)",
     description: "Interactive SVG world map in Angular with country details from the World Bank API. Routing and richer interactions beyond the course baseline.",
@@ -26,21 +28,24 @@ const FALLBACK_ITEMS = [
     repo: "#",
     image: "thumbs/world-map.jpg"
   },
+  */
   {
     title: "D277 Front-End Web Development",
     description: "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
     tags: ["HTML","CSS","JavaScript","Accessibility","Responsive"],
-    demo: "https://heathergauthier2018.github.io/Washington-State-Project/", // updated
-    repo: "",
-    image: "thumbs/thumb-placeholder.jpg"
+    demo: "https://heathergauthier2018.github.io/Washington-State-Project/",
+    repo: "washington-case-study.html",
+    repoLabel: "Case Study",
+    image: "thumbs/washingtonthumb.png"
   },
   {
-    title: "Dear Self — Journaling App (WIP)",
-    description: "Personal journaling app focusing on clean UX, tags/search, and private local data. Case study + demo link coming soon.",
+    title: "Dear Self",
+    description: "Personal journaling app focusing on calm UX, customization, and private local data. Built around a daily ritual, digital paper, and soft theming.",
     tags: ["React","Routing","State","localStorage","Accessibility"],
-    demo: "#",
-    repo: "#",
-    image: "thumbs/thumb-placeholder.jpg"
+    demo: "https://heathergauthier2018.github.io/Dear-Self/",
+    repo: "dear-self.html",
+    repoLabel: "Case Study",
+    image: "thumbs/dearselfthumb.png"
   }
 ];
 
@@ -85,10 +90,12 @@ function render(items){
       return '';
     };
 
-    const imgSrc = p.image || 'thumbs/thumb-placeholder.jpg';
+    // use project image, fall back to Cocktail Finder thumb if missing
+    const imgSrc = p.image || 'thumbs/cocktailthumb.png';
     const hasDemo = !!(p.demo && p.demo !== '#');
     const hasRepo = !!(p.repo && p.repo !== '#');
     const isPrivate = hasDemo && !hasRepo;
+    const repoLabel = escapeHtml(p.repoLabel || 'Repo');
 
     const tagsHtml =
       (p.tags || [])
@@ -100,14 +107,14 @@ function render(items){
       <img class="thumb"
            src="${imgSrc}"
            alt="Screenshot of ${escapeHtml(p.title || 'project')}"
-           onerror="this.onerror=null;this.src='thumbs/thumb-placeholder.jpg'">
+           onerror="this.onerror=null;this.src='thumbs/cocktailthumb.png'">
       <div class="content">
         <h3 class="title">${escapeHtml(p.title)}</h3>
         <p class="desc">${escapeHtml(p.description || '')}</p>
         <div class="tags">${tagsHtml}</div>
         <div class="actions">
           ${hasDemo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noreferrer">Live Demo</a>` : ''}
-          ${hasRepo ? `<a class="btn" href="${p.repo}" target="_blank" rel="noreferrer">Repo</a>` : ''}
+          ${hasRepo ? `<a class="btn btn-secondary" href="${p.repo}">${repoLabel}</a>` : ''}
         </div>
       </div>
     `;
