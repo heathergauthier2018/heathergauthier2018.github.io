@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>API Testing Suite — TheCocktailDB • Heather Gauthier</title>
+  <meta
+    name="description"
+    content="Case study for an automated API testing suite for TheCocktailDB, built with Postman, Newman, schema-style response validation, data-driven tests, and GitHub Actions CI."
+  />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="id">
+        <h1>Heather Gauthier</h1>
+        <p class="sub">Software Engineering Student • QA Certified (CTFL, CTFL-AT) • ITIL 4 Foundation</p>
+      </div>
+      <nav class="nav">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="HeatherGResume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap case-main">
+    <!-- HERO -->
+    <section class="case-section case-hero">
+      <div class="case-hero-text">
+        <p class="case-kicker">Case Study • API Testing & Automation</p>
+        <h1 class="case-title">API Testing Suite — TheCocktailDB (Postman + Newman)</h1>
+        <p class="case-lead">
+          This project is an automated API testing suite for
+          <a href="https://www.thecocktaildb.com/" target="_blank" rel="noreferrer">TheCocktailDB</a>,
+          built with Postman and executed via Newman. It validates core search and lookup endpoints,
+          negative and edge cases, response structure, and basic performance.
+        </p>
+        <p class="case-lead">
+          The suite is designed as both a professional portfolio piece and a practical regression
+          safety net for applications that consume this API, including my Cocktail Finder UI project.
+          It runs locally via Node.js and automatically in CI using GitHub Actions.
+        </p>
+
+        <div class="case-meta-chips">
+          <span class="tag --api">Postman</span>
+          <span class="tag --api">Newman</span>
+          <span class="tag --js">JavaScript Tests</span>
+          <span class="tag">Schema Validation</span>
+          <span class="tag --responsive">Data-Driven</span>
+          <span class="tag --storage">Reports</span>
+          <span class="tag --ts">GitHub Actions</span>
+        </div>
+
+        <div class="case-hero-actions">
+          <a
+            class="btn"
+            href="https://github.com/heathergauthier2018/api-testing-postman-newman"
+            target="_blank"
+            rel="noreferrer"
+          >View Repo</a>
+          <a
+            class="btn btn-secondary"
+            href="https://github.com/heathergauthier2018/api-testing-postman-newman/actions"
+            target="_blank"
+            rel="noreferrer"
+          >View CI Runs</a>
+        </div>
+      </div>
+
+      <div class="case-hero-pane" aria-hidden="true">
+        <div class="case-hero-card">
+          <div class="case-hero-card-header">
+            <span class="case-pill">Newman Run</span>
+            <span class="case-date">Cocktail API Suite</span>
+          </div>
+          <p class="case-hero-affirmation">
+            Automated Postman collection with schema-style response checks, data-driven
+            search tests, and HTML reporting.
+          </p>
+          <p class="case-hero-challenge">
+            CI runs keep TheCocktailDB integration healthy as the UI evolves,
+            catching regressions in the API contract early.
+          </p>
+          <div class="case-hero-footer">
+            <span class="case-tag-soft">10 endpoints • automated assertions & schema checks</span>
+            <span class="case-streak-soft">0 failures across 5 iterations</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="case-section">
+      <h2>Project Goals & Context</h2>
+      <p>
+        I created this suite to practice “real world” API automation instead of relying only on
+        UI-level manual checks. My Cocktail Finder project depends on TheCocktailDB, so I wanted
+        a dedicated way to validate that the API behaves as expected and continues to return
+        data in the shape my front end expects.
+      </p>
+      <p>
+        My goals for this project were:
+      </p>
+      <ul class="case-list">
+        <li>Design a structured Postman collection against a public REST API.</li>
+        <li>Cover happy-path, negative, and edge cases for the most important endpoints.</li>
+        <li>Validate response structure with schema-style checks (required fields and types), not just individual fields.</li>
+        <li>Use data-driven tests so one request can exercise multiple inputs.</li>
+        <li>Run the collection automatically via Newman in both local and CI environments.</li>
+        <li>Generate an HTML report that clearly communicates test coverage and results.</li>
+      </ul>
+    </section>
+
+    <!-- COVERAGE -->
+    <section class="case-section">
+      <h2>Test Coverage Overview</h2>
+      <p>
+        The suite focuses on TheCocktailDB’s search and lookup functionality, which directly
+        powers my UI. Coverage is grouped into functional, negative/edge, and performance checks.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Search & Lookup (Happy Path)</h3>
+          <ul class="case-list">
+            <li><strong>Search by name</strong> — <code>/search.php?s=margarita</code></li>
+            <li><strong>Search by uppercase name</strong> — case-insensitive checks.</li>
+            <li><strong>Search with space in name</strong> — <code>Bloody Mary</code> URL-encoding.</li>
+            <li><strong>Lookup by ID</strong> — <code>/lookup.php?i=11007</code>.</li>
+            <li><strong>Random cocktail</strong> — <code>/random.php</code> always returns a valid drink.</li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Filtering & Lists</h3>
+          <ul class="case-list">
+            <li><strong>Filter by category</strong> — <code>/filter.php?c=Cocktail</code>.</li>
+            <li><strong>Filter by ingredient</strong> — <code>/filter.php?i=Vodka</code>.</li>
+            <li>
+              Each result is validated for required fields such as
+              <code>idDrink</code>, <code>strDrink</code>, and <code>strDrinkThumb</code>.
+            </li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Negative & Edge Cases</h3>
+          <ul class="case-list">
+            <li>Invalid cocktail name returns no results instead of an error.</li>
+            <li>Invalid ID lookup returns an empty result set gracefully.</li>
+            <li>
+              Empty search input returns a general list of cocktails; tests explicitly document and handle
+              this API quirk instead of forcing an incorrect “no results” expectation.
+            </li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Performance & Stability</h3>
+          <ul class="case-list">
+            <li>Per-request response time checks (e.g., under 800 ms for key endpoints).</li>
+            <li>Multiple iterations of the full collection via the Postman Runner.</li>
+            <li>Newman runs in CI on every push to the main branch.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="case-section">
+      <h2>Automation Architecture</h2>
+      <p>
+        The project is organized to be lightweight but production-friendly. Everything needed to
+        run the tests lives in a small Node.js project.
+      </p>
+
+      <div class="case-split">
+        <div>
+          <h3>Tools & Stack</h3>
+          <ul class="case-list">
+            <li><strong>Postman collection</strong> defines requests and JavaScript tests.</li>
+            <li><strong>Newman</strong> runs the collection from the command line.</li>
+            <li><strong>newman-reporter-htmlextra</strong> generates an interactive HTML report.</li>
+            <li><strong>Node.js + npm</strong> manage dependencies and scripts.</li>
+            <li><strong>GitHub Actions</strong> runs Newman automatically in CI.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Base URL & Environments</h3>
+          <ul class="case-list">
+            <li>
+              A Postman environment named <strong>TheCocktailDB – Live</strong> holds the
+              <code>baseUrl</code> variable:
+              <code>https://www.thecocktaildb.com/api/json/v1/1</code>.
+            </li>
+            <li>
+              Requests use <code>{{baseUrl}}</code> so the same collection can run against
+              different environments in the future (e.g., mock servers).
+            </li>
+            <li>
+              Environment configuration keeps URLs DRY and makes the suite easier to maintain as
+              the API surface grows.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- DATA-DRIVEN TESTS -->
+    <section class="case-section">
+      <h2>Data-Driven Tests for Search</h2>
+      <p>
+        Instead of creating separate requests for every search variation, I turned the
+        <strong>Search Cocktails by Name</strong> request into a data-driven test.
+      </p>
+      <ul class="case-list">
+        <li>
+          A CSV data file supplies different search terms (e.g. <code>margarita</code>,
+          <code>Bloody Mary</code>, random gibberish, empty string, and uppercase names).
+        </li>
+        <li>
+          A pre-request script reads <code>pm.iterationData</code> to pull the current
+          <code>name</code> and an <code>expectResults</code> flag.
+        </li>
+        <li>
+          The script sets a temporary <code>{{name}}</code> variable used directly in the request
+          URL: <code>/search.php?s={{name}}</code>.
+        </li>
+        <li>
+          Tests assert different expectations depending on the data row:
+          positive searches must yield a non-empty <code>drinks</code> array, while negative cases
+          must return no results—except for the intentional empty-search case, which follows the API’s
+          real behavior and is documented as such.
+        </li>
+      </ul>
+      <p>
+        This approach keeps the collection compact while still exercising a wide range of inputs.
+        It also mirrors how data-driven suites work in larger automation frameworks.
+      </p>
+    </section>
+
+    <!-- SCHEMA-STYLE VALIDATION -->
+    <section class="case-section">
+      <h2>Schema-Style Response Validation</h2>
+      <p>
+        To go beyond simple “field exists” checks, I added lightweight schema-style validation to
+        selected endpoints by asserting the presence and type of key properties in each drink object.
+      </p>
+      <ul class="case-list">
+        <li>
+          Tests describe the expected shape of a drink object: required fields like
+          <code>idDrink</code>, <code>strDrink</code>, <code>strInstructions</code>, and
+          <code>strDrinkThumb</code>, plus expectations for IDs, names, and URLs.
+        </li>
+        <li>
+          Assertions parse the response body, walk the <code>drinks</code> array, and verify that each
+          object contains those fields with the correct types.
+        </li>
+        <li>
+          This makes contract changes more visible. If the API drops or renames a key, these checks
+          fail even if the HTTP status remains <code>200 OK</code>.
+        </li>
+      </ul>
+      <p>
+        The stricter checks focus on the endpoints my UI actually consumes, which keeps the suite fast
+        while still being strict where it matters.
+      </p>
+    </section>
+
+    <!-- CI INTEGRATION -->
+    <section class="case-section">
+      <h2>CI Integration with GitHub Actions</h2>
+      <p>
+        To keep the suite useful beyond local runs, I wired it into GitHub Actions so tests run
+        automatically whenever I push changes to the repository.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Workflow Highlights</h3>
+          <ul class="case-list">
+            <li>Triggers on pushes to the <code>main</code> branch.</li>
+            <li>Checks out the repo and installs Node.js and npm dependencies.</li>
+            <li>Runs the same <code>npm run test:api</code> command I use locally.</li>
+            <li>Surfaces pass/fail status directly in the Actions tab.</li>
+          </ul>
+        </article>
+        <article class="case-card">
+          <h3>Why It Matters</h3>
+          <ul class="case-list">
+            <li>Automates regression checks for any future changes to the suite.</li>
+            <li>
+              Demonstrates experience wiring a Postman/Newman workflow into a CI pipeline,
+              something used widely on real QA teams.
+            </li>
+            <li>
+              Creates an audit trail of test runs and makes it easy to show real-world automation
+              experience to reviewers.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- REPORTING -->
+    <section class="case-section">
+      <h2>HTML Reporting</h2>
+      <p>
+        To make results easier to review than console output, the suite uses
+        <code>newman-reporter-htmlextra</code> to generate an HTML report on every run.
+      </p>
+      <ul class="case-list">
+        <li>
+          The report is saved as <code>reports/cocktail-api-report.html</code> in the repository.
+        </li>
+        <li>
+          It includes high-level stats (iterations, requests, assertions, failures) plus per-request
+          details and response timing.
+        </li>
+        <li>
+          The dashboard-style UI makes it easy to scan for failing tests, slow endpoints, or
+          unexpected behavior.
+        </li>
+      </ul>
+      <p>
+        When hiring managers or peers clone the repo, they can either open the latest report or run
+        the suite themselves to generate a fresh one.
+      </p>
+      <p>
+        I also exported a sample report as a PDF so it can be reviewed quickly without running the suite:
+        <a href="Newman Summary Report.pdf" target="_blank" rel="noreferrer">
+  Download sample API test report (PDF)
+</a>.
+      </p>
+      
+    </section>
+
+    <!-- HOW TO RUN -->
+    <section class="case-section">
+      <h2>How to Run the Suite Locally</h2>
+      <p>
+        The suite is intentionally simple to run with just Node.js and npm:
+      </p>
+      <ol class="case-list">
+        <li>Clone the repository:
+          <code>git clone https://github.com/heathergauthier2018/api-testing-postman-newman.git</code>
+        </li>
+        <li>
+          Install dependencies:
+          <code>npm install</code>
+        </li>
+        <li>
+          Run the tests and generate the HTML report:
+          <code>npm run test:api</code>
+        </li>
+        <li>
+          Open <code>reports/cocktail-api-report.html</code> in a browser to explore the results.
+        </li>
+      </ol>
+      <p>
+        For deeper inspection, they can also import the Postman collection and environment directly
+        into Postman and explore or extend the tests there.
+      </p>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="case-section">
+      <h2>Reflection</h2>
+      <p>
+        This project strengthened my testing mindset beyond the UI layer. I practiced thinking in
+        terms of contracts, structure, and automation instead of only visual behavior.
+      </p>
+      <p>
+        It also gave me hands-on experience with tools that are common on QA and SDET teams:
+        Postman, Newman, schema-style response validation, data-driven testing, and CI integration.
+        Going forward, I can reuse this pattern for other APIs I work with, whether they back my own
+        projects or services on a larger engineering team.
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <small>© <span id="year"></span> Heather Gauthier • Deployed with GitHub Pages</small>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+</body>
+</html>

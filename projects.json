@@ -60,5 +60,28 @@
     "repo": "dear-self.html",
     "repoLabel": "Case Study",
     "image": "thumbs/dearselfthumb.png"
-  }
+  },
+  {
+  "title": "API Testing Suite – TheCocktailDB",
+  "description": "An automated, data-driven API regression suite for TheCocktailDB using Postman and Newman. Covers key endpoints with schema-style response validation, HTML reporting, and GitHub Actions CI.",
+  "tags": [
+    "Postman",
+    "Newman",
+    "API Testing",
+    "JavaScript",
+    "Node.js",
+    "Automation",
+    "Data-Driven",
+    "Schema Validation",
+    "Reports",
+    "CI/CD",
+    "GitHub Actions"
+  ],
+  "demo": "https://github.com/heathergauthier2018/api-testing-postman-newman",
+  "demoLabel": "View Repo",
+  "repo": "api-testing-newman.html",
+  "repoLabel": "Case Study",
+  "image": "thumbs/Postman + Newman.png"
+}
+
 ]
