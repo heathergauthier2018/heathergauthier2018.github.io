@@ -12,8 +12,9 @@ if (li) li.href = 'https://www.linkedin.com/in/heather-gauthier-11903a2a3/';
 const FALLBACK_ITEMS = [
   {
     title: "Cocktail Finder",
-    description: "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
-    tags: ["HTML","CSS","JavaScript","API","localStorage","Accessibility"],
+    description:
+      "Single-page app combining a random generator with a search explorer. Favorites saved in localStorage.",
+    tags: ["HTML", "CSS", "JavaScript", "API", "localStorage", "Accessibility"],
     demo: "https://heathergauthier2018.github.io/cocktail-finder2.0/",
     repo: "cocktail-case-study.html",
     repoLabel: "Case Study",
@@ -22,7 +23,8 @@ const FALLBACK_ITEMS = [
   /*
   {
     title: "World Map (Angular, Expanded)",
-    description: "Interactive SVG world map in Angular with country details from the World Bank API. Routing and richer interactions beyond the course baseline.",
+    description:
+      "Interactive SVG world map in Angular with country details from the World Bank API. Routing and richer interactions beyond the course baseline.",
     tags: ["Angular","TypeScript","SVG","HTTPClient","Routing","API"],
     demo: "#",
     repo: "#",
@@ -31,8 +33,9 @@ const FALLBACK_ITEMS = [
   */
   {
     title: "D277 Front-End Web Development",
-    description: "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
-    tags: ["HTML","CSS","JavaScript","Accessibility","Responsive"],
+    description:
+      "Responsive multi-page site showing semantic HTML, modern CSS (Flexbox/Grid), and vanilla JS interactivity.",
+    tags: ["HTML", "CSS", "JavaScript", "Accessibility", "Responsive"],
     demo: "https://heathergauthier2018.github.io/Washington-State-Project/",
     repo: "washington-case-study.html",
     repoLabel: "Case Study",
@@ -40,8 +43,9 @@ const FALLBACK_ITEMS = [
   },
   {
     title: "Dear Self",
-    description: "Personal journaling app focusing on calm UX, customization, and private local data. Built around a daily ritual, digital paper, and soft theming.",
-    tags: ["React","Routing","State","localStorage","Accessibility"],
+    description:
+      "Personal journaling app focusing on calm UX, customization, and private local data. Built around a daily ritual, digital paper, and soft theming.",
+    tags: ["React", "Routing", "State", "localStorage", "Accessibility"],
     demo: "https://heathergauthier2018.github.io/Dear-Self/",
     repo: "dear-self.html",
     repoLabel: "Case Study",
@@ -49,18 +53,20 @@ const FALLBACK_ITEMS = [
   }
 ];
 
-(async function loadProjects(){
+(async function loadProjects() {
   let items = FALLBACK_ITEMS;
   try {
     const res = await fetch('projects.json?ts=' + Date.now(), { cache: 'no-store' });
     if (!res.ok) throw new Error('projects.json HTTP ' + res.status);
     const data = await res.json();
     if (Array.isArray(data) && data.length) items = data;
-  } catch(_) { /* keep fallback */ }
+  } catch (_) {
+    /* keep fallback */
+  }
   render(items);
 })();
 
-function render(items){
+function render(items) {
   if (!grid) return;
   grid.innerHTML = '';
   const frag = document.createDocumentFragment();
@@ -95,11 +101,22 @@ function render(items){
     const hasDemo = !!(p.demo && p.demo !== '#');
     const hasRepo = !!(p.repo && p.repo !== '#');
     const isPrivate = hasDemo && !hasRepo;
-    const repoLabel = escapeHtml(p.repoLabel || 'Repo');
+
+    // Smarter label logic:
+    //  - If p.demoLabel exists, use it.
+    //  - Else, if demo is a GitHub link, call it "View Repo".
+    //  - Else, default to "Live Demo".
+    const demoLabel = escapeHtml(
+      p.demoLabel ||
+      (p.demo && /github\.com/.test(p.demo) ? 'View Repo' : 'Live Demo')
+    );
+
+    // For the secondary button, default label is "Case Study"
+    const repoLabel = escapeHtml(p.repoLabel || 'Case Study');
 
     const tagsHtml =
       (p.tags || [])
-        .map(t => `<span class="tag ${tagClass(t)}">${escapeHtml(t)}</span>`)
+        .map((t) => `<span class="tag ${tagClass(t)}">${escapeHtml(t)}</span>`)
         .join('') +
       (isPrivate ? `<span class="tag">Private code</span>` : '');
 
@@ -113,7 +130,7 @@ function render(items){
         <p class="desc">${escapeHtml(p.description || '')}</p>
         <div class="tags">${tagsHtml}</div>
         <div class="actions">
-          ${hasDemo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noreferrer">Live Demo</a>` : ''}
+          ${hasDemo ? `<a class="btn" href="${p.demo}" target="_blank" rel="noreferrer">${demoLabel}</a>` : ''}
           ${hasRepo ? `<a class="btn btn-secondary" href="${p.repo}">${repoLabel}</a>` : ''}
         </div>
       </div>
@@ -124,11 +141,11 @@ function render(items){
   grid.appendChild(frag);
 }
 
-function escapeHtml(str){
+function escapeHtml(str) {
   return String(str)
-    .replaceAll('&','&amp;')
-    .replaceAll('<','&lt;')
-    .replaceAll('>','&gt;')
-    .replaceAll('"','&quot;')
-    .replaceAll("'",'&#39;');
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
 }
