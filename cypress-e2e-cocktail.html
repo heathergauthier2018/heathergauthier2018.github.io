@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cypress E2E Suite — Cocktail Finder • Heather Gauthier</title>
+  <meta
+    name="description"
+    content="Case study for an end-to-end UI testing suite for the Cocktail Finder app, built with Cypress, fixtures, custom commands, and CI-ready configuration."
+  />
+  <link rel="stylesheet" href="styles.css?v=9" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="id">
+        <h1>Heather Gauthier</h1>
+        <p class="sub">
+          Software Engineering Student • QA Certified (CTFL, CTFL-AT) • ITIL 4 Foundation
+        </p>
+      </div>
+      <nav class="nav">
+        <a href="index.html#projects">Projects</a>
+        <a href="index.html#about">About</a>
+        <a href="HeatherGResume.pdf" target="_blank" rel="noreferrer">Resume</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap case-main">
+    <!-- HERO -->
+    <section class="case-section case-hero">
+      <div class="case-hero-text">
+        <p class="case-kicker">Case Study • Cypress E2E UI Testing</p>
+        <h1 class="case-title">Cypress E2E Suite — Cocktail Finder</h1>
+
+        <p class="case-lead">
+          This project is a Cypress end-to-end (E2E) UI testing suite for my
+          <a href="cocktail-case-study.html">Cocktail Finder</a> web app. It exercises the
+          application the way a real user would: loading random cocktails, running searches,
+          navigating between views, and saving or removing favorites backed by
+          <code>localStorage</code>.
+        </p>
+        <p class="case-lead">
+          Paired with my
+          <a href="api-testing-newman.html">API Testing Suite for TheCocktailDB</a>, it provides
+          layered coverage across both the API and the browser experience that consumes it. The
+          Cypress suite runs in real browsers locally and is wired into GitHub Actions, so
+          headless E2E checks can run automatically on every push.
+        </p>
+
+        <div class="case-meta-chips">
+          <span class="tag --api">Cypress</span>
+          <span class="tag --js">JavaScript</span>
+          <span class="tag">UI Testing</span>
+          <span class="tag --responsive">E2E</span>
+          <span class="tag --storage">localStorage</span>
+          <span class="tag --ts">GitHub Actions</span>
+        </div>
+
+        <div class="case-hero-actions">
+          <a
+            class="btn"
+            href="https://github.com/heathergauthier2018/cocktail-finder-cypress-e2e"
+            target="_blank"
+            rel="noreferrer"
+          >View Repo</a>
+          <a
+            class="btn btn-secondary"
+            href="https://github.com/heathergauthier2018/cypress-tests-cocktail-finder/actions"
+            target="_blank"
+            rel="noreferrer"
+          >View CI Runs</a>
+        </div>
+      </div>
+
+      <div class="case-hero-pane" aria-hidden="true">
+        <div class="case-hero-card">
+          <div class="case-hero-card-header">
+            <span class="case-pill">Cypress Run</span>
+            <span class="case-date">Cocktail Finder UI</span>
+          </div>
+          <p class="case-hero-affirmation">
+            E2E suite covering random cocktails, search, navigation, and favorites with reusable
+            commands and stable selectors.
+          </p>
+          <p class="case-hero-challenge">
+            Keeps the front-end experience reliable as the UI and API evolve, catching regressions
+            in real browser flows before they reach users.
+          </p>
+          <div class="case-hero-footer">
+            <span class="case-tag-soft">Key flows: random • search • favorites • navigation</span>
+            <span class="case-streak-soft">Cross-browser ready • CI automated</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="case-section">
+      <h2>Project Goals & Context</h2>
+      <p>
+        Cocktail Finder is a single-page app that talks to
+        <a href="https://www.thecocktaildb.com/" target="_blank" rel="noreferrer">TheCocktailDB</a>
+        and lets users discover new drinks, search for specific cocktails, and save favorites for
+        later. As I iterated on the UI, small changes to layout, state handling, or API usage could
+        easily break pieces of the experience in ways that weren’t obvious from API tests alone.
+      </p>
+      <p>
+        I created this Cypress suite to give myself a reliable, repeatable way to prove that the
+        main flows still work after refactors, styling updates, and new features. Instead of
+        relying on ad-hoc manual checks, I wanted automated tests that represented how real users
+        move through the app in an actual browser.
+      </p>
+      <p>
+        My goals for this project were:
+      </p>
+      <ul class="case-list">
+        <li>
+          Validate the most important user journeys end-to-end in a real browser
+          (random cocktails, search, navigation, and favorites).
+        </li>
+        <li>
+          Keep UI state and <code>localStorage</code> behavior in sync across reloads and sessions.
+        </li>
+        <li>
+          Use maintainable automation patterns — explicit <code>data-testid</code> selectors,
+          fixtures, and custom commands — so tests stay readable and resilient as the UI changes.
+        </li>
+        <li>
+          Exercise flows across multiple viewport sizes and browsers when running locally with the
+          Cypress Test Runner.
+        </li>
+        <li>
+          Make the suite CI-friendly so headless E2E checks can run automatically in GitHub
+          Actions on every push.
+        </li>
+      </ul>
+    </section>
+
+    <!-- COVERAGE -->
+    <section class="case-section">
+      <h2>Test Coverage Overview</h2>
+      <p>
+        The suite focuses on the flows that matter most to someone using Cocktail Finder:
+        loading random drinks, running searches, and managing favorites.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Random Cocktail Flow</h3>
+          <ul class="case-list">
+            <li>Loads the homepage and verifies an initial random cocktail is displayed.</li>
+            <li>Clicks the “random” button to fetch a new drink and checks that details update.</li>
+            <li>Asserts core UI elements (name, image, ingredients, instructions) are present.</li>
+            <li>Gracefully handles temporary API errors with a friendly error message.</li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Search & Results</h3>
+          <ul class="case-list">
+            <li>Search by full cocktail name (e.g., <code>margarita</code>).</li>
+            <li>Search by partial name and verify multiple results render correctly.</li>
+            <li>Search with no matches and confirm an appropriate “no results” UI.</li>
+            <li>Variations for uppercase/lowercase to ensure case-insensitive matching.</li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Favorites & localStorage</h3>
+          <ul class="case-list">
+            <li>Favorite a cocktail from search or random results.</li>
+            <li>Verify that the Favorites section updates immediately.</li>
+            <li>Reload the page and ensure favorites persist via <code>localStorage</code>.</li>
+            <li>Unfavorite a drink and confirm it is removed from both UI and storage.</li>
+          </ul>
+        </article>
+
+        <article class="case-card">
+          <h3>Navigation & Layout</h3>
+          <ul class="case-list">
+            <li>Check that key navigation controls and filters are accessible.</li>
+            <li>Basic responsiveness checks with multiple viewports (desktop and mobile widths).</li>
+            <li>Ensure focus states and keyboard navigation work for core controls.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="case-section">
+      <h2>Automation Architecture</h2>
+      <p>
+        The Cypress project uses a standard modern layout with E2E specs, shared helpers, and fixtures.
+      </p>
+
+      <div class="case-split">
+        <div>
+          <h3>Tools & Stack</h3>
+          <ul class="case-list">
+            <li><strong>Cypress</strong> for browser-based E2E testing.</li>
+            <li><strong>JavaScript</strong> test specs and helpers.</li>
+            <li><strong>Fixtures</strong> for sample search queries and mock drink data.</li>
+            <li><strong>Custom commands</strong> to log steps like favoriting and verifying items.</li>
+            <li><strong>Node.js + npm</strong> for dependencies and scripts.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3>Project Structure</h3>
+          <ul class="case-list">
+            <li><code>cypress/e2e/</code> — feature-based specs (random, search, favorites, navigation).</li>
+            <li><code>cypress/fixtures/</code> — reusable data for search terms and sample drinks.</li>
+            <li><code>cypress/support/commands.js</code> — custom commands like <code>cy.addFavorite()</code>.</li>
+            <li><code>cypress.config.js</code> — base URL and global configuration.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTOR STRATEGY & COMMANDS -->
+    <section class="case-section">
+      <h2>Selector Strategy & Reusable Commands</h2>
+      <p>
+        To keep the tests stable as the UI evolves, I rely on explicit
+        <code>data-testid</code> attributes for key elements instead of fragile CSS selectors.
+      </p>
+      <ul class="case-list">
+        <li>Buttons like <code>data-testid="random-btn"</code> and <code>data-testid="favorite-btn"</code>.</li>
+        <li>Search input with <code>data-testid="search-input"</code>.</li>
+        <li>Result cards with <code>data-testid="drink-card"</code>.</li>
+      </ul>
+      <p>
+        I also added custom commands for common flows:
+      </p>
+      <ul class="case-list">
+        <li><code>cy.visitApp()</code> — opens the Cocktail Finder app at its base URL.</li>
+        <li><code>cy.searchFor('margarita')</code> — types into the search box and submits.</li>
+        <li><code>cy.addFavorite('Margarita')</code> — favorites a card by drink name.</li>
+      </ul>
+      <p>
+        These commands keep the specs readable and make it easy to reuse patterns across tests.
+      </p>
+    </section>
+
+    <!-- CI INTEGRATION -->
+    <section class="case-section">
+      <h2>CI Integration with GitHub Actions</h2>
+      <p>
+        The suite is wired to run automatically in GitHub Actions so E2E checks happen on each push.
+      </p>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <h3>Workflow Highlights</h3>
+          <ul class="case-list">
+            <li>Installs Node.js and Cypress in a CI environment.</li>
+            <li>Runs <code>npm run test:e2e</code> (Cypress headless mode).</li>
+            <li>Surfaces pass/fail status and captured screenshots/videos on failure.</li>
+          </ul>
+        </article>
+        <article class="case-card">
+          <h3>Why It Matters</h3>
+          <ul class="case-list">
+            <li>Protects the user experience when I refactor UI code.</li>
+            <li>Shows hands-on experience using Cypress in a CI pipeline.</li>
+            <li>Pairs nicely with the Postman/Newman API suite to provide full-stack coverage.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- HOW TO RUN -->
+    <section class="case-section">
+      <h2>How to Run the Suite Locally</h2>
+      <p>
+        Running the Cypress suite only requires Node.js and npm:
+      </p>
+      <ol class="case-list">
+        <li>
+          Clone the repository:
+          <code>git clone https://github.com/heathergauthier2018/cocktail-finder-cypress-e2e.git</code>
+        </li>
+        <li>
+          Install dependencies:
+          <code>npm install</code>
+        </li>
+        <li>
+          Run tests in the Cypress GUI:
+          <code>npx cypress open</code>
+        </li>
+        <li>
+          Or run headless (useful for CI):
+          <code>npx cypress run</code>
+        </li>
+      </ol>
+      <p>
+        The project’s <code>cypress.config.js</code> file points to the deployed Cocktail Finder app,
+        so tests run against the same environment users see.
+      </p>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="case-section">
+      <h2>Reflection</h2>
+      <p>
+    This project strengthened my end-to-end testing mindset by pushing me to think beyond API
+    behavior and validate how real users experience the application. I learned to view UI flows as
+    contracts in their own right—contracts between the interface, the underlying state, and the API
+    responses that shape what the user sees.
+  </p>
+  <p>
+    Cypress helped me practice automation patterns used widely on QA and SDET teams:
+    resilient selector strategies, custom reusable commands, viewport and cross-browser testing,
+    and CI-driven E2E validation. Designing tests this way required me to think critically about state,
+    timing, accessibility, and user intent—not just what appears on screen.
+  </p>
+  <p>
+    Going forward, I can reuse this approach for any front-end application I test. Whether I’m
+    validating my own projects or working within a larger engineering team, this Cypress suite gives
+    me a solid foundation in modern UI automation, reliable regression coverage, and clean,
+    maintainable test design.
+  </p>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <small>© <span id="year"></span> Heather Gauthier • Deployed with GitHub Pages</small>
+  </footer>
+
+  <script src="script.js?v=9" defer></script>
+</body>
+</html>

@@ -82,6 +82,27 @@
   "repo": "api-testing-newman.html",
   "repoLabel": "Case Study",
   "image": "thumbs/Postman + Newman.png"
+},
+{
+  "title": "Cypress E2E Suite – Cocktail Finder",
+  "description": "A full end-to-end regression suite for the Cocktail Finder UI, built with Cypress to validate real user flows in the browser. Covers the random generator, search flows, favorites with localStorage persistence, error handling, and basic responsiveness to ensure the interface remains stable as the application evolves.",
+  "tags": [
+    "Cypress",
+    "JavaScript",
+    "UI Testing",
+    "E2E",
+    "Automation",
+    "Node.js",
+    "GitHub Actions",
+    "Cross-Browser",
+    "localStorage",
+    "Regression"
+  ],
+  "demo": "https://github.com/heathergauthier2018/cocktail-finder-cypress-e2e",
+  "demoLabel": "View Repo",
+  "repo": "cypress-e2e-cocktail.html",
+  "repoLabel": "Case Study",
+  "image": "thumbs/cypress.png"
 }
 
 ]
